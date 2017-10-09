@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F343A84C-B7FD-4E71-BA8D-E314896F0A79}</ProjectGuid>
+    <ProjectGuid>{DA491FD4-AE7B-4CB1-BF09-2B082D040D22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Projeto.Entidades</RootNamespace>
-    <AssemblyName>Projeto.Entidades</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Projeto.Util</RootNamespace>
+    <AssemblyName>Projeto.Util</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,30 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Antirreflexo.cs" />
-    <Compile Include="Armacao.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="Coloracao.cs" />
-    <Compile Include="Dioptria.cs" />
-    <Compile Include="Endereco.cs" />
-    <Compile Include="Enum\BasePrisma.cs" />
-    <Compile Include="Enum\FormaPagamento.cs" />
-    <Compile Include="Enum\Material.cs" />
-    <Compile Include="Enum\Olho.cs" />
-    <Compile Include="Enum\SituacaoPagamento.cs" />
-    <Compile Include="Enum\StatusPedido.cs" />
-    <Compile Include="Enum\TipoAntirreflexo.cs" />
-    <Compile Include="Enum\TipoCliente.cs" />
-    <Compile Include="Enum\TipoColoracao.cs" />
-    <Compile Include="Enum\TipoProducao.cs" />
-    <Compile Include="Enum\TipoVisao.cs" />
-    <Compile Include="Lente.cs" />
-    <Compile Include="Montagem.cs" />
-    <Compile Include="Pagamento.cs" />
-    <Compile Include="Pedido.cs" />
-    <Compile Include="Telefone.cs" />
-    <Compile Include="TipoLente.cs" />
-    <Compile Include="Usuario.cs" />
+    <Compile Include="Criptografia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
