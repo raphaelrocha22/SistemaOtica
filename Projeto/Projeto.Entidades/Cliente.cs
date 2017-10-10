@@ -14,7 +14,7 @@ namespace Projeto.Entidades
         public string email { get; set; }
         public DateTime dataCadastro { get; set; }
         public string cpfCnpj { get; set; }
-        public TipoCliente tipo { get; set; }
+        public TipoCliente tipoCliente { get; set; }
 
         public Endereco endereco { get; set; }
         public List<Telefone> telefones { get; set; }

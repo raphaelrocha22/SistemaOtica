@@ -1,0 +1,27 @@
+﻿@model List<Projeto.WEB.Models.Cliente.ClienteViewModel>
+<table>
+    <thead>
+        <tr>
+            <th>Codigo Cliente</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Tipo Cliente</th>
+            <th>CPF/CNPJ</th>
+            <th>Bairro</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.idCliente</td>
+                <td>@item.nome</td>
+                <td>@item.email</td>
+                <th>@item.tipo</th>
+                <th>@item.cpfCnpj</th>
+                <th>@item.bairro</th>
+            </tr>
+        }
+    </tbody>
+</table>
+

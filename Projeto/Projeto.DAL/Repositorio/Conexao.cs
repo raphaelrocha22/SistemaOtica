@@ -13,6 +13,7 @@ namespace Projeto.DAL.Repositorio
         protected SqlConnection con;
         protected SqlCommand cmd;
         protected SqlDataReader dr;
+        protected SqlTransaction tr;
 
         protected void AbirConexao()
         {

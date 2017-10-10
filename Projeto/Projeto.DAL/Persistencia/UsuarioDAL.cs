@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Projeto.DAL.Repositorio;
 using Projeto.Entidades;
 using System.Data.SqlClient;
+using Projeto.Util;
 
 namespace Projeto.DAL.Persistencia
 {
@@ -13,18 +14,30 @@ namespace Projeto.DAL.Persistencia
     {
         public void Cadastrar(Usuario u)
         {
-            AbirConexao();
+            try
+            {
+                AbirConexao();
+                tr = con.BeginTransaction("cadastrarUsuario");
 
-            string query = "insert into Usuario (nome, login, senha, dataCadastro, ativo) values (@nome, @login, @senha, @dataCadastro, @ativo)";
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@nome", u.nome);
-            cmd.Parameters.AddWithValue("@login", u.login);
-            cmd.Parameters.AddWithValue("@senha", u.senha);
-            cmd.Parameters.AddWithValue("@dataCadastro", u.dataCadastro);
-            cmd.Parameters.AddWithValue("@ativo", u.ativo);
-            cmd.ExecuteNonQuery();
+                string query = "insert into Usuario (nome, login, senha, dataCadastro, ativo) values (@nome, @login, @senha, @dataCadastro, @ativo)";
+                cmd = new SqlCommand(query, con, tr);
+                cmd.Parameters.AddWithValue("@nome", u.nome);
+                cmd.Parameters.AddWithValue("@login", u.login);
+                cmd.Parameters.AddWithValue("@senha", Criptografia.EncriptarSenha(u.senha));
+                cmd.Parameters.AddWithValue("@dataCadastro", u.dataCadastro);
+                cmd.Parameters.AddWithValue("@ativo", u.ativo);
+                cmd.ExecuteNonQuery();
 
-            FecharConexao();
+                tr.Commit();
+                FecharConexao();
+
+            }
+            catch (Exception e)
+            {
+                tr.Rollback();
+                FecharConexao();
+                throw e;
+            }
         }
 
         public Usuario Consultar(string login, string senha)
@@ -32,7 +45,9 @@ namespace Projeto.DAL.Persistencia
             AbirConexao();
 
             string query = "select * from Usuario where login = @login and senha = @senha and ativo = 1";
-            cmd = new SqlCommand(query, con);
+            cmd = new SqlCommand(query, con, tr);
+            cmd.Parameters.AddWithValue("@login", login);
+            cmd.Parameters.AddWithValue("@senha", Criptografia.EncriptarSenha(senha));
             dr = cmd.ExecuteReader();
 
             Usuario u = null;
@@ -43,7 +58,6 @@ namespace Projeto.DAL.Persistencia
                 u.idUsuario = (int)dr["idUsuario"];
                 u.nome = (string)dr["nome"];
                 u.login = (string)dr["login"];
-                u.senha = (string)dr["senha"];
                 u.dataCadastro = (DateTime)dr["dataCadastro"];
             }
 
