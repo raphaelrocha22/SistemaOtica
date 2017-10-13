@@ -76,30 +76,43 @@ namespace Projeto.DAL.Persistencia
         {
             AbirConexao();
 
-            string query = "select c.*, e.* from Cliente c inner join Endereco e on c.idCliente = e.idCliente ";
+            string query = "select c.*, e.* from Cliente c inner join Endereco e on c.idCliente = e.idCliente where c.dataCadastro <= GetDate() ";
             
             if (cliente.idCliente != 0)
-                query += "where idCliente = @idCliente";
-                
+                query += "and c.idCliente = @idCliente ";
+
             if (cliente.nome != null)
-                query += "where c.nome = @nome";
+                query += "and c.nome = @nome ";
+            else
+                cliente.nome = string.Empty;
                 
             if (cliente.email != null)
-                query += "where c.email = @email";
-                
+                query += "and c.email = @email ";
+            else
+                cliente.email = string.Empty;
+
             if (cliente.cpfCnpj != null)
-                query += "where c.cpfCnpj = @cpfCnpj";
-                
+                query += "and c.cpfCnpj = @cpfCnpj ";
+            else
+                cliente.cpfCnpj = string.Empty;
+
             if (cliente.endereco.bairro != null)
-                query += "where e.bairro = @bairro";
-                
-            
+                query += "and e.bairro = @bairro";
+            else
+                cliente.endereco.bairro = string.Empty;
+
+            if (cliente.endereco.cep != null)
+                query += "and e.cep = @cep";
+            else
+                cliente.endereco.cep = string.Empty;
+
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@idCliente", cliente.idCliente);
             cmd.Parameters.AddWithValue("@nome", cliente.nome);
             cmd.Parameters.AddWithValue("@email", cliente.email);
             cmd.Parameters.AddWithValue("@cpfCnpj", cliente.cpfCnpj);
             cmd.Parameters.AddWithValue("@bairro", cliente.endereco.bairro);
+            cmd.Parameters.AddWithValue("@cep", cliente.endereco.cep);
             dr = cmd.ExecuteReader();
 
             var lista = new List<Cliente>();

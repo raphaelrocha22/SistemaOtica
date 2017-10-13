@@ -81,6 +81,7 @@ namespace Projeto.WEB.Controllers
                 c.email = model.email;
                 c.cpfCnpj = model.cpfCnpj;
                 c.endereco.bairro = model.bairro;
+                c.endereco.cep = model.cep;
 
                 var d = new ClienteDAL();
                 foreach (var item in d.Consultar(c))
